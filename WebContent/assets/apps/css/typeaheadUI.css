@@ -1,0 +1,6 @@
+#scrollable-dropdown-menu .dropdown-menu {
+	max-height: 150px;
+	/*min-width:320px;*/
+	width: 330px;
+	overflow-y: auto;
+}

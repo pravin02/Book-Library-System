@@ -1,0 +1,376 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header" ng-init="getAllStudents()">
+	<h1>
+		{{ moduleName }}
+		<!--<small>{{ description }}</small>-->
+	</h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<!-- Your Page Content Here -->
+	<!-- Default box -->
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+			<div class="box-tools pull-right">
+
+				<button class="btn btn-primary" data-toggle="modal"
+					data-target="#userModal" ng-click="initToDefault()"
+					tooltip-trigger="mouseover" tooltip-placement="center"
+					uib-tooltip="Click here to add customer">
+					<i class="fa fa-plus"> </i> {{ btnAddNew }}
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="wrapper-inverse">
+				<div class="col-md-1">Search:</div>
+				<div class="col-md-3">
+					<input class="form-control" placeholder="Enter Search Text"
+						ng-model="search" />
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default">
+						<i class="fa fa-binoculars"></i> Search
+					</button>
+				</div>
+				<!--<div class="col-md-3 pull-right">
+                    <select ng-model="itemsPerPage" class="form-control"
+                            ng-change="pageChanged(CurrentPageNumber, itemsPerPage)">
+                        <option ng-repeat="itemPerPage in perPageItems" ng-value="{{ itemPerPage }}">
+                            {{ itemPerPage }}
+                        </option>
+                    </select>
+                </div>-->
+			</div>
+			<br> <br>
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Phone No</th>
+					<th>Mobile No</th>
+					<th>Address</th>
+					<th>city</th>
+					<th>Designation</th>
+					<th>Status</th>
+					<th>Action</th>
+					<th>Book Action</th>
+				</tr>
+				<tr ng-repeat="data in users | filter:search:strict">
+					<td>{{ $index + 1 + pageItemIndex }}</td>
+					<td><b> {{data.fullName}} </b></td>
+					<td>{{data.gender}}</td>
+					<td>{{data.mobileNo}}</td>
+					<td>{{data.address}}</td>
+					<td>{{data.city }}</td>
+					<td>{{data.designation }}</td>
+					<td ng-show="{{data.userStatus=='ACTIVE'}}"><button
+							class="btn btn-mini btn-success btn-block">{{data.userStatus
+							}}</button></td>
+					<td ng-show="{{data.userStatus=='INACTIVE'}}"><button
+							class="btn btn-mini btn-danger btn-block">{{data.userStatus
+							}}</button></td>
+
+					<td>
+						<button class="btn-sm btn-danger btn-mini"
+							ng-show="{{data.userStatus=='ACTIVE'}}"
+							ng-click="updateUserStatus(data)">INACTIVE</button>
+						<button class="btn-sm btn-success btn-mini"
+							ng-show="{{data.userStatus=='INACTIVE'}}"
+							ng-click="updateUserStatus(data)">ACTIVE</button>
+
+						<button class="btn-sm btn-mini btn-danger" title="Delete"
+							ng-click="deleteUser(data.userId)">
+							<i class="fa fa-remove"></i>
+						</button>
+					</td>
+					<td>
+						<button class="btn-sm btn-success" data-toggle="modal"
+							data-target="#BookIssueModal" ng-click="setUser(data)">
+							Issue Book</button>
+					</td>
+				</tr>
+			</table>
+
+			<!--<pagination boundary-links="true"
+                        total-items="TotalItems"
+                        items-per-page="itemsPerPage"
+                        max-size="pagingSize"
+                        ng-change="pageChanged(CurrentPageNumber, itemsPerPage)"
+                        ng-model="CurrentPageNumber"
+                        class="pagination-md pull-right"
+                        previous-text="Prev"
+                        next-text="Next"
+                        first-text="First"
+                        last-text="Last"></pagination>-->
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->
+
+<!-- Modal -->
+<div id="BookIssueModal" class="modal fade" role="dialog"
+	ng-init="getAllBookCategories()">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookIssueForm" name="bookIssueForm"
+			ng-model="bookIssueForm" novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title">Issue Books to Student</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="well">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-md-2 text-default">Staff Name :</span> <span
+											class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.fullName
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">designation
+											:</span> <span class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.designation
+												}}</b> </span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-sm-2 col-md-2 col-lg-2 text-default">Mobile
+											NO : </span> <span class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.mobileNo
+												}} </b> </span> <span class="col-md-2 text-default">Address :</span> <span
+											class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.address
+												}} </b> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Book
+								Category </label>
+							<div class="col-sm-10 col-md-10 col-lg-10 controls">
+								<select ng-model="bookCategory" class="form-control"
+									ng-change="getBooksByCategoryId(bookCategory)">
+									<option ng-repeat="category in categories" class="form-control"
+										ng-value="category.categoryId">{{ category.category
+										}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Book
+							</label>
+							<div class="col-sm-10 col-md-10 col-lg-10 controls">
+								<select ng-model="bookId" class="form-control"
+									ng-change="selectedBook(bookId)">
+									<option ng-repeat="book in books" class="form-control"
+										ng-value="book.bookId">{{ book.title }}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="well">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-md-2 text-default">Title :</span> <span
+											class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.title
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">Author
+											: </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.author
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">ISBN
+											:</span> <span class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.isbn
+												}}</b> </span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-sm-2 col-md-2 col-lg-2 text-default">Publication
+											: </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.publication
+												}} </b> </span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-md-2 text-default">Year :</span> <span
+											class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.year
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">No
+											Of Copies :</span> <span
+											class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.copies
+												}}</b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">Available
+											Copines :</span> <span
+											class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.availableCopies
+												}}</b> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="close" class="btn btn-default"
+							data-dismiss="modal">CANCEL</button>
+						<button type="button" id="save" data-dismiss="userModal"
+							class="btn btn-primary" ng-click="issuBook(bookCategory, bookId)">
+							Issue</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- end -->
+
+
+
+<!-- Modal -->
+<div id="userModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="userForm" name="userForm" ng-model="userForm"
+			novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							ng-click="user={}">&times;</button>
+						<h3 class="modal-title">Manage {{moduleName}}</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Name</label>
+							<div class="col-sm-10 col-md-10 col-lg-10 controls">
+								<input type="text" placeholder="Enter {{ moduleName }} Name"
+									ng-value="{{ user.fullName }}" class="form-control"
+									id="user.fullName" name="user.fullName"
+									ng-model="user.fullName" ng-minlength="3" autofocus required>
+								<div style="color: red;"
+									ng-show="userForm.user.fullName.$dirty &&
+                                userForm.user.fullName.$invalid">
+									<span ng-show="userForm.user.fullName.$error.required">
+										Please Enter {{moduleName}} Name </span>
+									<div ng-message="pattern">
+										{{moduleName}} Name must be more <b>3 </b>Characters.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Gender</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<select ng-model="user.gender" class="form-control">
+									<option value="MALE" ng-selected="true">MALE</option>
+									<option value="FEMALE">FEMALE</option>
+								</select>
+							</div>
+
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">DOB</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="user.dob" placeholder="Enter DOB"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Phone
+								No</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" placeholder="Enter phone Number"
+									ng-value="{{ user.phoneNo }}" class="form-control"
+									id="user.phoneNo" name="user.phoneNo" ng-model="user.phoneNo"
+									required />
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Mobile
+								No</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" id="user.mobileNo" name="user.mobileNo"
+									ng-model="user.mobileNo" ng-minlength="10"
+									placeholder="Enter Mobile Number" class="form-control" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Email
+								ID</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" placeholder="Enter Email ID"
+									ng-value="{{ user.emailId }}" class="form-control"
+									id="user.emailId" name="user.emailId" ng-model="user.emailId"
+									required />
+							</div>
+
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Country</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-value="{{user.country}}"
+									ng-model="user.country" ng-disabled="true"
+									placeholder="Enter Country" class="form-control" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">State</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<select class="form-control" ng-model="user.state">
+									<option ng-repeat="state in states" ng-value="{{user.state}}"
+										ng-selected="user.state == state.state">
+										{{state.state}}</option>
+								</select>
+							</div>
+
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">City</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="user.city" value="Jalgaon"
+									placeholder="Enter City" class="form-control" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Address</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<textarea type="text" placeholder="Enter address"
+									ng-value="{{ user.state }}" class="form-control"
+									id="user.address" name="user.address" ng-model="user.address"
+									required></textarea>
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">User
+								Type</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="user.userType"
+									placeholder="Enter User Type" class="form-control"
+									ng-disabled="true" required />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Password</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="user.password"
+									placeholder="Enter  Password" class="form-control" required />
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Designation</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="user.designation"
+									placeholder="Enter  Designation" class="form-control"
+									ng-value="Student" required ng-disabled="true" />
+							</div>
+						</div>
+						{{user}} <br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="close" class="btn btn-default"
+							data-dismiss="modal">CANCEL</button>
+						<button type="button" id="save" data-dismiss="userModal"
+							class="btn btn-primary" ng-click="addStudent(user)">ADD
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- end -->

@@ -1,0 +1,86 @@
+
+<section class="content-header" ng-init="getDashboardData()">
+	<h1>
+		{{appName}} <small>{{ description }}</small>
+	</h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<!-- =========================================================== -->
+
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-lg-6 col-xs-6 col-md-6">
+			<!-- small box -->
+			<div class="small-box bg-aqua">
+				<div class="inner">
+					<h2>{{dashboard.totalStudents}}</h2>
+					<h4>Total Students</h4>
+				</div>
+				<div class="icon">
+					<i class="fa fa-user"></i>
+				</div>
+				<a ui-sref="base.student" class="small-box-footer"> More info <i
+					class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-6 col-xs-6 col-md-6">
+			<!-- small box -->
+			<div class="small-box bg-green">
+				<div class="inner">
+					<h2>{{ dashboard.totalStaffs }}</h2>
+					<h4>Total Staff</h4>
+				</div>
+				<div class="icon">
+					<i class="fa fa-user"></i>
+				</div>
+				<a ui-sref="base.staff" class="small-box-footer"> More info <i
+					class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+		<!-- ./col -->
+	</div>
+	<!-- /.row -->
+
+
+	<div class="row">
+		<div class="col-lg-6 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-yellow">
+				<div class="inner">
+					<h3>{{ dashboard.totalBookCategories }}</h3>
+					<h4>Book Categories</h4>
+				</div>
+				<div class="icon">
+					<i class="fa fa-book"></i>
+				</div>
+				<a ui-sref="base.bookCategory" class="small-box-footer"> More
+					info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-6 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-red">
+				<div class="inner">
+					<h3>{{ dashboard.totalBooks }}</h3>
+					<h4>Total Books</h4>
+				</div>
+				<div class="icon">
+					<i class="fa fa-book"></i>
+				</div>
+				<a ui-sref="base.books" class="small-box-footer"> More info <i
+					class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+		<!-- ./col -->
+	</div>
+	<!-- /.row -->
+</section>
+<!-- /.content -->

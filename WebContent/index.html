@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html ng-app="mainApp" id="app">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Book Library</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<!-- Bootstrap 3.3.5 -->
+<link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="./assets/Font-Awesome-master/css/font-awesome.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="./assets/dist/css/PatsStyle.css">
+<link rel="stylesheet" href="./assets/dist/css/skin-blue.css">
+<link rel="stylesheet" href="./assets/dist/css/customization.css">
+<link rel="stylesheet" href="./assets/dist/css/loading-bar.css">
+<link rel="stylesheet" href="./assets/dist/css/ladda-min.css">
+<link rel="stylesheet" href="./assets/dist/ngExDialog/ngExDialog.css">
+<style>
+.navbar {
+	position: inherit !important;
+	margin-bottom: 0px;
+}
+</style>
+</head>
+<body class="hold-transition skin-blue layout-boxed sidebar-mini"
+	ng-controller="BodyController">
+	<span ui-view=""></span>
+
+
+	<!-- REQUIRED CSS STYLES -->
+	<!-- REQUIRED JS SCRIPTS -->
+	<script src="./Scripts/angular.js"></script>
+	<script src="./Scripts/angular-route.js"></script>
+	<script src="./Scripts/angular-ui-router.js"></script>
+	<script src="./Scripts/angular-resource.js"></script>
+	<script src="./Scripts/angular-messages.min.js"></script>
+	<script src="./Scripts/angular-animate.min.js"></script>
+	<script src="./Scripts/angular-sanitize.js"></script>
+	<script src="./app/Services/http-auth-interceptor.js"></script>
+	<script src="./assets/dist/ngExDialog/ngExDialog.js"></script>
+
+	<!-- third party modules-->
+	<script src="assets/apps/scripts/spin.min.js"></script>
+	<script src="assets/apps/scripts/ladda.min.js"></script>
+	<script src="assets/apps/scripts/angular-ladda.min.js"></script>
+	<script src="assets/apps/scripts/loading-bar.js"></script>
+	<script src="assets/apps/scripts/toastr.min.js"></script>
+	<script src="Scripts/ng-file-upload-shim.js"></script>
+	<script src="Scripts/ng-file-upload.js"></script>
+	<!-- jQuery 2.1.4 -->
+	<script src="./assets/dist/jQuery/jQuery-2.1.4.min.js"></script>
+	<!-- Bootstrap 3.3.5 -->
+	<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="./Scripts/ui-bootstrap-tpls-0.12.0.js"></script>
+	<script src="Scripts/ngStorage.min.js"></script>
+	<script src="./assets/dist/js/app.js"></script>
+	<script src="./app/app.js"></script>
+	<!-- services-->
+	<script src="app/Services/FileUploadService.js"></script>
+	<script src="app/Services/commonService.js"></script>
+	<!-- directives-->
+	<script src="./app/Directives/directives.js"></script>
+	<!-- common controllers -->
+	<script src="app/Controllers/Common/HeaderController.js"></script>
+	<script src="app/Controllers/Common/SideMenuBarController.js"></script>
+	<script src="app/Controllers/Common/FooterController.js"></script>
+	<!-- app controllers-->
+	<script src="app/Controllers/DashboardController.js"></script>
+	<script src="app/Controllers/LoginController.js"></script>
+	<script src="app/Controllers/BodyController.js"></script>
+	<script src="app/Controllers/BookCategoryController.js"></script>
+	<script src="app/Controllers/BookController.js"></script>
+	<script src="app/Controllers/StaffController.js"></script>
+	<script src="app/Controllers/StudentController.js"></script>
+	<script src="app/Controllers/IssuedBooksController.js"></script>
+	<script src="app/Controllers/FineController.js"></script>
+	<script src="app/Controllers/Common/UpdateController.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		{{ moduleName }}
+		<!--<small>{{ description }}</small>-->
+	</h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<!-- Your Page Content Here -->
+	<!-- Default box -->
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+			<!--<div class="box-tools pull-right">
+
+                <button class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+                        ng-click="initToDefault()" tooltip-trigger="mouseover" tooltip-placement="center"
+                        uib-tooltip="Click here to add customer">
+                    <i class="fa fa-plus"> </i> {{ btnAddNew }}
+                </button>
+            </div>-->
+		</div>
+		<div class="box-body">
+			<div class="wrapper-inverse">
+				<div class="col-md-1">Search:</div>
+				<div class="col-md-2">
+					<input class="form-control" placeholder="Enter Search Text"
+						ng-model="search" />
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default">
+						<i class="fa fa-binoculars"></i> Search
+					</button>
+				</div>
+
+				<div class="col-md-1">User Type:</div>
+				<div class="col-md-2">
+					<select ng-model="userType" class="form-control"
+						ng-change="getAllStudents()">
+						<option ng-value="STAFF">STAFF</option>
+						<option ng-value="STUDENT">STUDENT</option>
+					</select>
+				</div>
+				<!--<div class="col-md-3 pull-right">
+                    <select ng-model="itemsPerPage" class="form-control"
+                            ng-change="pageChanged(CurrentPageNumber, itemsPerPage)">
+                        <option ng-repeat="itemPerPage in perPageItems" ng-value="{{ itemPerPage }}">
+                            {{ itemPerPage }}
+                        </option>
+                    </select>
+                </div>-->
+			</div>
+			<br> <br>
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Phone No</th>
+					<th>Mobile No</th>
+					<th>Address</th>
+					<th>city</th>
+					<th>Designation</th>
+					<th>View</th>
+				</tr>
+				<tr ng-repeat="data in users | filter:search:strict">
+					<td>{{ $index + 1 + pageItemIndex }}</td>
+					<td><b> {{data.fullName}} </b></td>
+					<td>{{data.gender}}</td>
+					<td>{{data.mobileNo}}</td>
+					<td>{{data.address}}</td>
+					<td>{{data.city }}</td>
+					<td>{{data.designation }}</td>
+					<td>
+						<button class="btn" data-toggle="modal"
+							data-target="#BookIssueModal" ng-click="setUser(data)">
+							<i class="fa fa-eye"></i> Issued Book
+						</button>
+					</td>
+				</tr>
+			</table>
+
+			<!--<pagination boundary-links="true"
+                        total-items="TotalItems"
+                        items-per-page="itemsPerPage"
+                        max-size="pagingSize"
+                        ng-change="pageChanged(CurrentPageNumber, itemsPerPage)"
+                        ng-model="CurrentPageNumber"
+                        class="pagination-md pull-right"
+                        previous-text="Prev"
+                        next-text="Next"
+                        first-text="First"
+                        last-text="Last"></pagination>-->
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->
+<!-- Modal -->
+<div id="BookIssueModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookIssueForm" name="bookIssueForm"
+			ng-model="bookIssueForm" novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title">Issued Books</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="well">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-md-2 text-default">Staff Name :</span> <span
+											class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.fullName
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">designation
+											:</span> <span class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.designation
+												}}</b> </span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-sm-2 col-md-2 col-lg-2 text-default">Mobile
+											NO : </span> <span class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.mobileNo
+												}} </b> </span> <span class="col-md-2 text-default">Address :</span> <span
+											class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{user.address
+												}}, {{user.city }} </b> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<!-- Main content -->
+							<section class="content">
+								<!-- Your Page Content Here -->
+								<!-- Default box -->
+								<div class="box">
+									<div class="box-header with-border">
+										<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+									</div>
+									<div class="box-body">
+										<div class="wrapper-inverse">
+											<div class="col-md-1">Search:</div>
+											<div class="col-md-3">
+												<input class="form-control" placeholder="Enter Search Text"
+													ng-model="search" />
+											</div>
+										</div>
+										<br> <br>
+										<table class="table table-bordered table-striped">
+											<tr>
+												<th>#</th>
+												<th>Image</th>
+												<th>Category Name</th>
+												<th>Book Title</th>
+												<th>Author</th>
+												<th>ISBN</th>
+												<th>Publication</th>
+												<th>Publish Year</th>
+												<th>Description</th>
+											</tr>
+											<tr
+												ng-repeat="data in books | limitTo:itemsPerPage | filter:search:strict">
+												<td>{{ $index + 1 + pageItemIndex }}</td>
+												<td><img src="{{getImage($index)}}"
+													style="width: 40px; height: 40px"
+													class="img-thumbnail img-circle" /></td>
+												<td>{{data.category.category}}</td>
+												<td><b>{{data.title}}</b></td>
+												<td>{{data.author}}</td>
+												<td>{{data.ISBN}}</td>
+												<td>{{data.publication}}</td>
+												<td>{{data.year }}</td>
+												<td>{{data.description}}</td>
+											</tr>
+										</table>
+
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+							</section>
+							<!-- /.content -->
+						</div>
+						<br>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- end -->

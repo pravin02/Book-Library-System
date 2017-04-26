@@ -1,0 +1,198 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		{{ moduleName }}
+		<!--<small>{{ description }}</small>-->
+	</h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<!-- Your Page Content Here -->
+	<!-- Default box -->
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+			<!--<div class="box-tools pull-right">
+
+                <button class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+                        ng-click="initToDefault()" tooltip-trigger="mouseover" tooltip-placement="center"
+                        uib-tooltip="Click here to add customer">
+                    <i class="fa fa-plus"> </i> {{ btnAddNew }}
+                </button>
+            </div>-->
+		</div>
+		<div class="box-body">
+			<div class="wrapper-inverse">
+				<div class="col-md-1">Search:</div>
+				<div class="col-md-2">
+					<input class="form-control" placeholder="Enter Search Text"
+						ng-model="search" />
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default">
+						<i class="fa fa-binoculars"></i> Search
+					</button>
+				</div>
+			</div>
+			<br> <br>
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Full Name</th>
+					<th>Mobile No</th>
+					<th>Address</th>
+					<th>User Type</th>
+					<th>Designation</th>
+					<th>Book Category</th>
+					<th>Book Title</th>
+					<th>Author</th>
+					<th>Leagle Return Date Time</th>
+					<th>Action</th>
+				</tr>
+				<tr
+					ng-repeat="data in issuedBooks | limitTo:itemsPerPage | filter:search:strict">
+					<td>{{ $index + 1 + pageItemIndex }}</td>
+					<td><b> {{data.user.fullName}} </b></td>
+					<td>{{data.user.mobileNo}}</td>
+					<td>{{data.user.address}}</td>
+					<td>{{data.user.userType }}</td>
+					<td>{{data.user.designation }}</td>
+					<td>{{data.bookCategory.category }}</td>
+					<td>{{data.title }}</td>
+					<td>{{data.author}}</td>
+					<td>{{data.leagleReturnDateTime}}</td>
+					<td>
+						<button class="btn btn-danger" data-target="#bookIssueModal"
+							data-toggle="modal" ng-click="setBook(data)">Make Fine</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->
+<!-- Modal -->
+<div id="bookIssueModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookIssueForm" name="bookIssueForm"
+			ng-model="bookIssueForm" novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title">Fine</h3>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<div class="well">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-md-2 text-default">User Name :</span> <span
+											class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.user.fullName
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">designation
+											:</span> <span class="col-sm-4 col-md-4 col-lg-4 text-default"><b>{{book.user.designation
+												}}</b> </span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<span class="col-sm-2 col-md-2 col-lg-2 text-default">Mobile
+											NO : </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.user.mobileNo
+												}} </b> </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default">User
+											Type : </span> <span class="col-sm-2 col-md-2 col-lg-2 text-default"><b>{{book.user.userType
+												}} </b> </span> <span
+											class="col-md-sm-1 col-md-1 col-md-lg-1 text-default">Address:</span>
+										<span class="col-sm-3 col-md-3 col-lg-3 text-default"><b>{{book.user.address
+												}} </b> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<div class="col-md-3">
+								<input class="form-control" placeholder="Enter Fine Amount"
+									ng-model="book.fineAmount" />
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input class="form-control" placeholder="Enter Comment"
+										ng-model="book.comment" />
+									<div class="input-group-btn">
+										<button class="btn btn-danger" ng-click="registerFine(book)">
+											<i class="fa fa-plus"></i> Submit
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--<div class="form-group">
+                            <div class="col-md-2">
+                                Search:
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" placeholder="Enter Search Text" ng-model="search" />
+                            </div>
+                        </div>-->
+						<div class="form-group">
+							<table class="table table-bordered table-striped">
+								<tr>
+									<th>#</th>
+									<th>Image</th>
+									<th>Category Name</th>
+									<th>Book Title</th>
+									<th>Author</th>
+									<th>ISBN</th>
+									<th>Publication</th>
+									<th>Publish Year</th>
+									<th>Description</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><img src="{{getImage(book.image)}}"
+										style="width: 40px; height: 40px"
+										class="img-thumbnail img-circle" /></td>
+									<td>{{book.bookCategory.category}}</td>
+									<td><b>{{book.title}}</b></td>
+									<td>{{book.author}}</td>
+									<td>{{book.ISBN}}</td>
+									<td>{{book.publication}}</td>
+									<td>{{book.year }}</td>
+									<td>{{book.description}}</td>
+								</tr>
+								<!--<tr ng-repeat="data in books | limitTo:itemsPerPage | filter:search:strict">
+                                    <td>{{ $index + 1 + pageItemIndex }}</td>
+                                    <td>
+                                        <img src="{{getImage($index)}}"
+                                             style="width:40px; height:40px"
+                                             class="img-thumbnail img-circle" />
+                                    </td>
+                                    <td> {{data.bookCategory.category}}</td>
+                                    <td><b>{{data.title}}</b></td>
+                                    <td>{{data.author}}</td>
+                                    <td>{{data.ISBN}}</td>
+                                    <td>{{data.publication}}</td>
+                                    <td>{{data.year }}</td>
+                                    <td>{{data.description}}</td>
+                                </tr>
+                                    -->
+							</table>
+						</div>
+
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- end -->

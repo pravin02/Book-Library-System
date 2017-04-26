@@ -1,0 +1,38 @@
+
+<div class="login-box">
+	<div class="login-logo">
+		<b>{{appName}}</b>
+	</div>
+	<!-- /.login-logo -->
+
+	<form novalidate>
+		<div class="login-box-body">
+			<p class="login-box-msg">Sign in to use {{appName}}</p>
+
+			<div class="form-group has-feedback">
+				<span ng-show="{{!status}}"> {{message}}</span>
+			</div>
+			<div class="form-group has-feedback">
+				<input type="text" class="form-control" placeholder="Username"
+					ng-model="user.emailId" value="{{user.emailId}}"> <span
+					class="glyphicon glyphicon-user form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<input type="password" class="form-control" placeholder="Password"
+					ng-model="user.password" value="{{user.password}}"> <span
+					class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<button type="submit"
+						class="ladda-button btn btn-block btn-primary"
+						ladda-button="loading" data-color="mint" data-size="s"
+						data-style="zoom-in" ng-click="login(user)">Sign In</button>
+				</div>
+				<!-- /.col -->
+			</div>
+		</div>
+		<!-- /.login-box-body -->
+	</form>
+</div>
+<!-- /.login-box -->

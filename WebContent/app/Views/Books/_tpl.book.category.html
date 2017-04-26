@@ -1,0 +1,108 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header" ng-init="getAllBookCategories()">
+	<h1>{{ moduleName }}</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Your Page Content Here -->
+	<!-- Default box -->
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+			<div class="box-tools pull-right">
+
+				<button class="btn btn-primary" data-toggle="modal"
+					data-target="#bookCategoryModal" ng-click="initToDefault()"
+					tooltip-trigger="mouseover" tooltip-placement="center"
+					uib-tooltip="Click here to add customer">
+					<i class="fa fa-plus"> </i> {{ btnAddNew }}
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="wrapper-inverse">
+				<div class="col-md-1">Search:</div>
+				<div class="col-md-3">
+					<input class="form-control" placeholder="Enter Search Text"
+						ng-model="search" />
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default">
+						<i class="fa fa-binoculars"></i> Search
+					</button>
+				</div>
+			</div>
+			<br> <br>
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Category Name</th>
+					<th>Description</th>
+				</tr>
+				<tr ng-repeat="data in categories | filter:search">
+					<td>{{ $index + 1}}</td>
+					<td>{{data.category}}</td>
+					<td>{{data.description}}</td>
+				</tr>
+			</table>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->
+<!-- Modal -->
+<div id="bookCategoryModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookCategoryForm" name="bookCategoryForm"
+			ng-model="bookCategoryForm" novalidate>
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							ng-click="bookCategory={}">&times;</button>
+						<h3 class="modal-title">Manage {{moduleName}}</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-3 control-label">Category
+								Name : </label>
+							<div class="col-sm-9 col-md-9 col-lg-9 controls">
+								<input type="text" placeholder="Enter {{ moduleName }} Name"
+									ng-value="{{ bookCategory.category }}" class="form-control"
+									id="bookCategory.category" name="bookCategory.category"
+									ng-model="bookCategory.category" ng-minlength="3" autofocus
+									required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-3 control-label">Category
+								Description : </label>
+							<div class="col-sm-9 col-md-9 col-lg-9 controls">
+								<input type="text"
+									placeholder="Enter {{ moduleName }} Description"
+									ng-value="{{ bookCategory.description }}" class="form-control"
+									id="bookCategory.description" name="bookCategory.description"
+									ng-model="bookCategory.description" ng-minlength="3" autofocus
+									required>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="close" class="btn btn-default"
+							data-dismiss="modal">CANCEL</button>
+						<button type="button" id="save" data-dismiss="bookCategoryModal"
+							class="btn btn-primary" ng-click="addBookCategory(bookCategory)">
+							ADD</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- end -->

@@ -1,0 +1,28 @@
+<div ng-controller="commonDialogController" set-dialog-div>
+	<div class="dialog-header" set-dialog-header>
+		<div class="dialog-title" set-dialog-title></div>
+	</div>
+	<div class="dialog-message dialog-body" set-dialog-body>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div set-dialog-icon></div>
+				</td>
+				<td>
+					<div class="dialog-message-body" set-dialog-message></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="dialog-buttons dialog-footer" set-dialog-footer>
+		<button type="button" class="dialog-button dialog-button-secondary"
+			ng-click="dialogProp.closeAllDialogs?closeAllDialogs():closeThisDialog('close')"
+			ng-show="dialogProp.closeButtonLabel != undefined && dialogProp.closeButtonLabel != ''"
+			set-close-button></button>
+
+		<button type="button" class="dialog-button dialog-button-primary"
+			ng-click="confirm('action')"
+			ng-show="dialogProp.actionButtonLabel != undefined && dialogProp.actionButtonLabel != ''"
+			set-action-button></button>
+	</div>
+</div>

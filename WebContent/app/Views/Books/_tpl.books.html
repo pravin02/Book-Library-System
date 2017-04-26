@@ -1,0 +1,360 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		{{ moduleName }}
+		<!--<small>{{ description }}</small>-->
+	</h1>
+</section>
+
+<!-- Main content -->
+<section class="content" ng-init="getAllBookCategories()">
+	<!-- Your Page Content Here -->
+	<!-- Default box -->
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{ moduleName }} &nbsp;</h3>
+			<div class="box-tools pull-right">
+
+				<button class="btn btn-primary" data-toggle="modal"
+					data-target="#bookModal" ng-click="initToDefault()"
+					tooltip-trigger="mouseover" tooltip-placement="center"
+					uib-tooltip="Click here to add customer">
+					<i class="fa fa-plus"> </i> {{ btnAddNew }}
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="wrapper-inverse">
+				<div class="col-md-1">Search:</div>
+				<div class="col-md-3">
+					<input class="form-control" placeholder="Enter Search Text"
+						ng-model="search" />
+				</div>
+				<div class="col-md-2">Book Category :</div>
+				<div class="col-md-2">
+					<select ng-model="bookCategory" class="form-control">
+						<option ng-repeat="category in categories" class="form-control"
+							ng-value="category.categoryId">{{ category.category }}</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default"
+						ng-click="getBooksByCategoryId(bookCategory)">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<!--<div class="col-md-2">
+                    <select ng-model="itemsPerPage" class="form-control"
+                            ng-change="pageChanged(CurrentPageNumber, itemsPerPage)">
+                        <option ng-repeat="itemPerPage in perPageItems" ng-value="{{ itemPerPage }}">
+                            {{ itemPerPage }}
+                        </option>
+                    </select>
+                </div>-->
+			</div>
+			<br> <br>
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Image</th>
+					<th>Category Name</th>
+					<th>Book Title</th>
+					<th>Author</th>
+					<th>ISBN</th>
+					<th>Publication</th>
+					<th>Publish Year</th>
+					<th>Description</th>
+					<th>No Of Copies</th>
+					<th>Available Copies</th>
+					<th>Action</th>
+				</tr>
+				<tr ng-repeat="data in books | filter:search:strict">
+					<td>{{ $index + 1 + pageItemIndex }}</td>
+					<td><img src="{{getImage($index)}}"
+						style="width: 80px; height: 80px" class="img-thumbnail img-circle" />
+					</td>
+					<td>{{data.category.category}}</td>
+					<td><b>{{data.title}}</b></td>
+					<td>{{data.author}}</td>
+					<td>{{data.ISBN}}</td>
+					<td>{{data.publication}}</td>
+					<td>{{data.year }}</td>
+					<td>{{data.description}}</td>
+					<td>{{data.copies}}</td>
+					<td>{{data.availableCopies}}</td>
+					<td>
+						<button class="btn btn-sm show-tooltip" title="Edit"
+							ng-click="editBook(data)" data-toggle="modal"
+							data-target="#bookEditModal">
+							<i class="fa fa-edit"></i>
+						</button>
+						<button class="btn btn-sm show-tooltip" title="Delete"
+							ng-click="deleteBook(data.bookId)">
+							<i class="fa fa-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+
+			<!--<pagination boundary-links="true"
+                        total-items="TotalItems"
+                        items-per-page="itemsPerPage"
+                        max-size="pagingSize"
+                        ng-change="pageChanged(CurrentPageNumber, itemsPerPage)"
+                        ng-model="CurrentPageNumber"
+                        class="pagination-md pull-right"
+                        previous-text="Prev"
+                        next-text="Next"
+                        first-text="First"
+                        last-text="Last"></pagination>-->
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->
+<!-- Modal -->
+<div id="bookModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookForm" name="bookForm" ng-model="bookForm"
+			novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							ng-click="initToDefault()">&times;</button>
+						<h3 class="modal-title">Manage {{moduleName}}</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Title
+							</label>
+							<div class="col-sm-10 col-md-10 col-lg-10 controls">
+								<input type="text" placeholder="Enter {{ moduleName }} Title"
+									ng-value="{{ book.title }}" class="form-control"
+									id="book.title" name="book.title" ng-model="book.title"
+									ng-minlength="3" autofocus required>
+								<div style="color: red;"
+									ng-show="bookForm.book.title.$dirty &&
+                                bookForm.book.title.$invalid">
+									<div ng-show="bookForm.book.title.$error.required">
+										Please Enter {{moduleName}} title</div>
+									<div ng-message="pattern">
+										{{moduleName}} Title must be more <b>3 </b>Characters.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Book
+								Category</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+
+								<select ng-model="book.bookCategory.categoryId"
+									class="form-control">
+									<option ng-repeat="category in categories" class="form-control"
+										ng-value="category.categoryId">{{ category.category
+										}}</option>
+								</select>
+
+							</div>
+
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Author</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="book.author"
+									placeholder="Enter author Name" class="form-control" /> <span
+									style="color: red;"
+									ng-show="bookForm.book.author.$dirty &&
+                                bookForm.book.author.$invalid">
+									<span ng-show="bookForm.book.author.$error.required">
+										Please Enter Author Name </span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Publication</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" placeholder="Enter Publication"
+									ng-value="{{ book.publication }}" class="form-control"
+									ng-model="book.publication" required />
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">ISBN</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="book.isbn" placeholder="Enter ISBN"
+									class="form-control" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Publish
+								Year</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="number" placeholder="Enter year"
+									ng-value="{{ book.year }}" class="form-control" id="book.year"
+									name="book.year" ng-model="book.year" required />
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">No
+									Of Copies</label>
+								<div class="col-sm-3 col-md-3 col-lg-3 controls">
+									<input type="number" placeholder="Enter copies"
+										ng-value="{{ book.copies }}" class="form-control"
+										id="book.copies" name="book.copies" ng-model="book.copies"
+										required />
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">No
+									Rack Number</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<input type="text" placeholder="Enter Rack No"
+										class="form-control" ng-model="book.rackNo" />
+								</div>
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">Description</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<textarea type="text" placeholder="Enter Description"
+										ng-value="{{ book.description }}" class="form-control"
+										id="book.description" name="book.description"
+										ng-model="book.description" required></textarea>
+								</div>
+							</div>
+							{{book}}
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="close" class="btn btn-default"
+								data-dismiss="modal">CANCEL</button>
+							<button type="button" id="save" data-dismiss="bookModal"
+								class="btn btn-primary" ng-click="addBook(book)">ADD</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+</div>
+<!-- Modal end -->
+<!--Edit Book Modal -->
+<div id="bookEditModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal form-bordered form-row-stripped"
+			role="form" id="bookForm" name="bookForm" ng-model="bookForm"
+			novalidate>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title">Manage {{moduleName}}</h3>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Title
+							</label>
+							<div class="col-sm-10 col-md-10 col-lg-10 controls">
+								<input type="text" placeholder="Enter {{ moduleName }} Title"
+									ng-model="book.title" ng-value="{{ book.title }}"
+									class="form-control" ng-disabled="true" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Book
+								Category</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" placeholder="Enter {{ moduleName }} Title"
+									ng-model="book.category.category" class="form-control"
+									ng-disabled="true" />
+
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Author</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="book.author"
+									placeholder="Enter author Name" class="form-control"
+									ng-disabled="true" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Publication</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" placeholder="Enter Publication"
+									class="form-control" ng-model="book.publication"
+									ng-disabled="true" />
+							</div>
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">ISBN</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="text" ng-model="book.isbn" placeholder="Enter ISBN"
+									class="form-control" ng-disabled="true" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 col-lg-2 control-label">Publish
+								Year</label>
+							<div class="col-sm-4 col-md-4 col-lg-4 controls">
+								<input type="number" placeholder="Enter year"
+									class="form-control" ng-model="book.year" ng-disabled="true" />
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">No
+									Of Copies</label>
+								<div class="col-sm-3 col-md-3 col-lg-3 controls">
+									<input type="number" placeholder="Enter copies"
+										class="form-control" ng-model="book.copies" ng-disabled="true" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">No
+									Rack Number</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<input type="text" placeholder="Enter Rack No"
+										class="form-control" ng-model="book.rackNo" ng-disabled="true" />
+								</div>
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">Description</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<textarea type="text" placeholder="Enter Description"
+										class="form-control" ng-disabled="true"
+										ng-model="book.description"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">Image</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<img src="{{getBookImage(book.image)}}"
+										style="width: 80px; height: 80px" class="img-circle" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 col-md-2 col-lg-2 control-label">Select
+									Image</label>
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<img ngf-src="book.newImage" class="img-thumbnail img-circle"
+										style="height: 100px; width: 100px" />
+								</div>
+							</div>
+							<div class="form-control">
+								<div class="col-sm-4 col-md-4 col-lg-4 controls">
+									<input ngf-select="" ng-model="book.newImage"
+										ngf-accept="'image/*'" required="" type="file" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="close" class="btn btn-default"
+							data-dismiss="modal">CANCEL</button>
+						<button type="button" id="save" data-dismiss="bookEditModal"
+							class="btn btn-primary"
+							ng-click="updateBookImage(book, book.newImage)">Update</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</form>
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- Modal end -->
