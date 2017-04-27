@@ -554,7 +554,6 @@ final class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public List<Fine> getFine(int bookIssueId) {
-		// TODO Auto-generated method stub
 		String SQL = "{CALL getFine(?)}";
 		List<Fine> list = jdbcTemplateObject.query(SQL, new RowMapper<Fine>() {
 			@Override
