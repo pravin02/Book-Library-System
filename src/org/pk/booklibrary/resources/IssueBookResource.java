@@ -20,8 +20,8 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
- * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 @Path("issue")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,6 +32,10 @@ public class IssueBookResource {
 
 	private Logger logger = Logger.getLogger(IssueBookResource.class);
 
+	/**
+	 * @param issuedBook
+	 * @return
+	 */
 	@POST
 	public Response issueBook(IssuedBook issuedBook) {
 		Message message = null;
@@ -51,6 +55,10 @@ public class IssueBookResource {
 		return Response.status(Status.OK).entity(message).build();
 	}
 
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@GET
 	@Path("{id}")
 	public Response getIssuedBooksByUserId(@PathParam("id") int userId) {
@@ -64,9 +72,11 @@ public class IssueBookResource {
 			message = new Message(true, null, object);
 		}
 		return Response.status(Status.OK).entity(message).build();
-
 	}
-	
+
+	/**
+	 * @return
+	 */
 	@GET
 	public Response getIssuedBooks() {
 		Message message = null;
@@ -77,6 +87,5 @@ public class IssueBookResource {
 			message = new Message(true, null, object);
 		}
 		return Response.status(Status.OK).entity(message).build();
-
 	}
 }

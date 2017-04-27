@@ -11,12 +11,17 @@ import org.apache.log4j.Logger;
 import org.pk.booklibrary.model.common.AppConstants;
 import org.pk.booklibrary.model.common.Message;
 
+/**
+ * @author PKCORP
+ * @since 26/04/2017
+ */
 @Path("/")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public class DefaultResource {
 	private Logger logger = Logger.getLogger(DefaultResource.class);
 	/**
 	 * @return Response default API Resource application details
+	 * returns application name and version
 	 */	
 	@GET
 	public Response get() {

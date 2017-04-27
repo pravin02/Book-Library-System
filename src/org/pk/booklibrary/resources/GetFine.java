@@ -1,4 +1,5 @@
 package org.pk.booklibrary.resources;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +17,8 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * @author PKORP
+ * @since 26/04/2017
  * 
  */
 @Path("fine_amount")
@@ -24,25 +26,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Consumes(MediaType.APPLICATION_JSON)
 public class GetFine {
 
-		@Autowired
-		UserDao userDao;
+	@Autowired
+	UserDao userDao;
 
-		private Logger logger = Logger.getLogger(GetFine.class);
+	private Logger logger = Logger.getLogger(GetFine.class);
 
-		/**
-		 * @param fine_amount
-		 * @return
-		 */
-		@GET
-		public Response getFine(@QueryParam("bookIssueId") int bookIssueId) {
-			logger.info(" Fine " + bookIssueId);
-			Message message = null;
-			List<Fine> result = userDao.getFine(bookIssueId);
-			if (result != null) {
-				message = new Message(true, "This is your Fine.", result);
-			} else {
-				message = new Message(false, "Error in Fine", null);
-			}
-			return Response.status(Status.OK).entity(message).build();
+	/**
+	 * @param bookIssueId
+	 * @return
+	 */
+	@GET
+	public Response getFine(@QueryParam("bookIssueId") int bookIssueId) {
+		logger.info(" Fine " + bookIssueId);
+		Message message = null;
+		List<Fine> result = userDao.getFine(bookIssueId);
+		if (result != null) {
+			message = new Message(true, "This is your Fine.", result);
+		} else {
+			message = new Message(false, "Error in Fine", null);
 		}
+		return Response.status(Status.OK).entity(message).build();
+	}
 }

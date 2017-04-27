@@ -15,7 +15,8 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * @author PKORP
+ * @since 26/04/2017
  * 
  */
 @Path("book_renewal")
@@ -28,6 +29,11 @@ public class BookRenewal {
 
 	private Logger logger = Logger.getLogger(BookRenewal.class);
 
+	/**
+	 * @param userId
+	 * @param bookIssueId
+	 * @return
+	 */
 	@POST
 	public Response requestForRenewal(@QueryParam("userId") int userId, @QueryParam("bookIssueId") int bookIssueId) {
 		Message message = null;

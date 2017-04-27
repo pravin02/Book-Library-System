@@ -22,7 +22,8 @@ import org.pk.booklibrary.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * @author PKCORP
+ * @since 26/04/2017
  * 
  */
 @Path("/educations")
@@ -40,7 +41,7 @@ public class EducationResource {
 
 	/**
 	 * @param id
-	 * @return
+	 * @return list of educations
 	 */
 	@GET
 	public Response getEducationListByUserId() {
@@ -57,7 +58,7 @@ public class EducationResource {
 
 	/**
 	 * @param id
-	 * @return
+	 * @return education details by educationId
 	 */
 	@GET
 	@Path("{id}")
@@ -80,6 +81,11 @@ public class EducationResource {
 	public Response addEducation(Education education) {
 		logger.info("addEducation: id = " + token + "\n " + education);
 		Message message = null;
+
+		/*
+		 * validating education detais for register
+		 * 
+		 */
 		if (token == 0) {
 			message = new Message(false, "Invalid UserId.", null);
 		} else if (TextUtils.isEmpty(education.getDegree())) {

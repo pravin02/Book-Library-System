@@ -32,7 +32,8 @@ import org.pk.booklibrary.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * @author PKORP
+ * @since 26/04/2017
  * 
  */
 @Path("books")
@@ -55,6 +56,10 @@ public final class BookResource {
 		userDao = SpringUtils.getUserDao();
 	}
 
+	/**
+	 * @param book
+	 * @return
+	 */
 	@POST
 	public Response addBook(Book book) {
 		Message message = null;
@@ -68,10 +73,9 @@ public final class BookResource {
 		return Response.status(Status.OK).entity(message).build();
 	}
 
-
 	/**
 	 * @param categoryId
-	 * @return
+	 * @return list of books by categoryId
 	 */
 	@GET
 	@Path("{categoryId}")
@@ -86,7 +90,11 @@ public final class BookResource {
 		}
 		return Response.status(Status.OK).entity(message).build();
 	}
-	
+
+	/**
+	 * @param categoryId
+	 * @return
+	 */
 	@GET
 	@Path("categories")
 	public Response getBooksByCategory(@QueryParam("categoryId") int categoryId) {
@@ -170,6 +178,12 @@ public final class BookResource {
 
 	}
 
+	/**
+	 * @param id
+	 * @param uploadedInputStream
+	 * @param fileDetail
+	 * @return
+	 */
 	@POST
 	@Path("/update/{id}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -203,6 +217,10 @@ public final class BookResource {
 		return Response.status(Status.OK).entity(message).build();
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@DELETE
 	@Path("{id}")
 	public Response deleteBook(@PathParam("id") int id) {
@@ -217,7 +235,5 @@ public final class BookResource {
 			message = new Message(false, "Invalid Book Id", null);
 		}
 		return Response.status(Status.OK).entity(message).build();
-
 	}
-
 }

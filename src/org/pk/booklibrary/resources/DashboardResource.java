@@ -13,7 +13,8 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE resource for Dashboard
+ * @author PKCORP
+ * @since 26/04/2017
  * 
  */
 @Path("dashboard")

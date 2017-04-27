@@ -38,7 +38,8 @@ import org.pk.booklibrary.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * @author PKCORP
+ * @since 26/04/2017
  * 
  */
 @Path("users")
@@ -63,6 +64,10 @@ public class UserResource {
 
 	private Logger logger = Logger.getLogger(UserResource.class);
 
+	/**
+	 * @param userType
+	 * @return returns users list by user type
+	 */
 	@GET
 	public Response getUsersList(@QueryParam("userType") String userType) {
 		Message message = null;
@@ -77,7 +82,7 @@ public class UserResource {
 
 	/**
 	 * @param id
-	 * @return
+	 * @return user details by userId
 	 */
 	@GET
 	@Path("/{id}")
@@ -100,6 +105,9 @@ public class UserResource {
 	public Response registerUser(User user) {
 		Message message = null;
 
+		/*
+		 * validating user details
+		 */
 		if (TextUtils.isEmpty(user.getFullName())) {
 			message = new Message(false, "Please enter Full Name.", null);
 		} else if (TextUtils.isEmpty(user.getGender())) {
@@ -154,15 +162,14 @@ public class UserResource {
 	 * @param uploadedInputStream
 	 * @param fileDetail
 	 * @param password
-	 * @return
+	 * @return writing profile picture to books directory and updating record by
+	 *         userId
 	 */
 	@POST
 	@Path("/{id}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadProfilePic(@PathParam("id") int id, 
-			@FormDataParam("file") InputStream uploadedInputStream,
-			@FormDataParam("file") FormDataContentDisposition fileDetail, 
-			@FormDataParam("password") String password) {
+	public Response uploadProfilePic(@PathParam("id") int id, @FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("password") String password) {
 		Message message = null;
 		String fileName = fileDetail.getFileName();
 		String fileExtension = FileUtils.getFileExtension(fileName);
@@ -194,7 +201,7 @@ public class UserResource {
 	/**
 	 * @param id
 	 * @param user
-	 * @return
+	 * @return updating user status
 	 */
 	@PUT
 	@Path("status/{id}")
@@ -227,7 +234,7 @@ public class UserResource {
 	/**
 	 * @param id
 	 * @param user
-	 * @return
+	 * @return updating user details
 	 */
 	@PUT
 	@Path("/{id}")
@@ -248,6 +255,10 @@ public class UserResource {
 		return Response.status(Status.OK).entity(message).build();
 	}
 
+	/**
+	 * @param id
+	 * @return delete user record from system
+	 */
 	@DELETE
 	@Path("{id}")
 	public Response deleteUser(@PathParam("id") int id) {
@@ -262,7 +273,5 @@ public class UserResource {
 			message = new Message(false, "Invalid Users Id", null);
 		}
 		return Response.status(Status.OK).entity(message).build();
-
 	}
-
 }
