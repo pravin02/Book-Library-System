@@ -1,8 +1,9 @@
 package org.pk.booklibrary.utils;
 
 /**
- * @author SHREE
- * 
+ * Utility class for Text
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class TextUtils {
 
@@ -20,6 +21,7 @@ public class TextUtils {
 	}
 
 	/**
+	 * method to check passed string is digit or not
 	 * @param str
 	 * @return
 	 */

@@ -20,8 +20,10 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE
+ * resource for book history
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 @Path("books_history")
 @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +40,7 @@ public final class BookHistoryResource {
 
 	/**
 	 * @param categoryId
-	 * @return
+	 * @return all books by categoryId
 	 */
 	@GET
 	@Path("{id}")

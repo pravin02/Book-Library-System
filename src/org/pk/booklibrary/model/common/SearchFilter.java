@@ -1,7 +1,12 @@
 package org.pk.booklibrary.model.common;
 
+/**
+ * Class to define Search Filter common criteria.
+ * 
+ * @author PKCORP
+ * @since 26/04/2017
+ */
 public class SearchFilter {
-
 	private int id;
 	private String startDate;
 	private String endDate;
@@ -136,14 +141,12 @@ public class SearchFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "SearchFilter [id=" + id + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", columnName=" + columnName
-				+ ", order=" + order + ", search=" + search + ", index="
-				+ index + ", noOfItems=" + noOfItems + "]";
+		return "SearchFilter [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", columnName="
+				+ columnName + ", order=" + order + ", search=" + search + ", index=" + index + ", noOfItems="
+				+ noOfItems + "]";
 	}
 }

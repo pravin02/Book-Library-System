@@ -16,7 +16,8 @@ import org.springframework.stereotype.Component;
  * LoginDaoImpl providing implementation for LoginDoa interface. LoginDaoImpl
  * code used to login
  * 
- * @author SHREE
+ * @author PKORP
+ * @since 26/04/2017
  */
 @Component
 final class LoginDaoImpl implements LoginDao {

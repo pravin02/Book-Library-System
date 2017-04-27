@@ -159,8 +159,10 @@ public class UserResource {
 	@POST
 	@Path("/{id}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadProfilePic(@PathParam("id") int id, @FormDataParam("file") InputStream uploadedInputStream,
-			@FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("password") String password) {
+	public Response uploadProfilePic(@PathParam("id") int id, 
+			@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail, 
+			@FormDataParam("password") String password) {
 		Message message = null;
 		String fileName = fileDetail.getFileName();
 		String fileExtension = FileUtils.getFileExtension(fileName);

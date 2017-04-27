@@ -4,8 +4,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
+ * enum for book issue status.
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public enum BookIssueStatus {
 	ISSUED, RETURNED;

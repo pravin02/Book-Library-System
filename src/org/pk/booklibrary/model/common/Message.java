@@ -1,8 +1,24 @@
 package org.pk.booklibrary.model.common;
 
+/**
+ * Class to marshal and unmarshal received data from REST API's
+ * 
+ * @author PKCORP
+ * @since 26/04/2017
+ */
 public class Message {
+	/**
+	 * 
+	 */
 	private boolean status;
+	/**
+	 * represent returns message from API
+	 */
 	private String message;
+
+	/**
+	 * represents data returned from API
+	 */
 	private Object data;
 
 	/**
@@ -69,7 +85,6 @@ public class Message {
 	 */
 	@Override
 	public String toString() {
-		return "Message [status=" + status + ", message=" + message + ", data="
-				+ data + "]";
+		return "Message [status=" + status + ", message=" + message + ", data=" + data + "]";
 	}
 }

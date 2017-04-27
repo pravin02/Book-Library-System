@@ -51,7 +51,7 @@ public class DateTimeUtils {
 	}
 
 	/**
-	 * @return current date tile for file name
+	 * @return current date time for file name
 	 */
 	public static String getCurrentDateTimeForFile() {
 		SimpleDateFormat sdf = new SimpleDateFormat(FILE_NAME_FORMAT);

@@ -11,20 +11,27 @@ import javax.ws.rs.ext.Provider;
 import org.pk.booklibrary.model.common.Message;
 
 /**
- * @author SHREE
+ * This class created for authentication purpose before forwarding request to
+ * resource.
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 @Provider
 public class AuthenticationFilter implements ContainerRequestFilter {
+	/**
+	 * This method gets called internally whenever client requests to any
+	 * resource.
+	 * 
+	 * @see javax.ws.rs.container.ContainerRequestFilter#filter(javax.ws.rs.container.ContainerRequestContext)
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) {
-
 		boolean isError = false;
 		String absoluteUrl = requestContext.getUriInfo().getPath();
 		String AUTH_URL = "authentication";
 		String REGISTER_URL = "user/register";
-		if (absoluteUrl.equalsIgnoreCase("")
-				|| absoluteUrl.equalsIgnoreCase(AUTH_URL)
+		if (absoluteUrl.equalsIgnoreCase("") || absoluteUrl.equalsIgnoreCase(AUTH_URL)
 				|| absoluteUrl.equalsIgnoreCase(REGISTER_URL)) {
 			return;
 		}
@@ -47,8 +54,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		}
 		if (isError) {
 			Message message = new Message(false, "Unautherised user", null);
-			requestContext.abortWith(Response.status(Status.UNAUTHORIZED)
-					.entity(message).build());
+			requestContext.abortWith(Response.status(Status.UNAUTHORIZED).entity(message).build());
 		}
 	}
 }

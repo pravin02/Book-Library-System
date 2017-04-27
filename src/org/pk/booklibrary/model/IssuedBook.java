@@ -3,8 +3,8 @@ package org.pk.booklibrary.model;
 import java.sql.Timestamp;
 
 /**
- * @author SHREE
- * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class IssuedBook {
 

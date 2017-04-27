@@ -18,9 +18,12 @@ import org.pk.booklibrary.model.common.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author SHREE resource for authentication
+ * resource for authentication
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
+
 @Path("authentication")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -31,9 +34,14 @@ public class AuthResource {
 	 */
 	@Autowired
 	LoginDao loginDao;
+	/*
+	 * Logger for logging DEBUG messages to files
+	 */
 	private Logger logger = Logger.getLogger(AuthResource.class);
 
 	/**
+	 * function for login
+	 * 
 	 * @param user
 	 * @return Response
 	 */

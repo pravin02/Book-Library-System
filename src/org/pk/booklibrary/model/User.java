@@ -4,8 +4,8 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
- * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class User {
 

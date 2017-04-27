@@ -1,8 +1,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
+ * model class for book category.
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class BookCategory {
 

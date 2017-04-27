@@ -1,8 +1,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
- *
+ * class to represent dashboard data.
+ * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class Dashboard {
 

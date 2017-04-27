@@ -4,7 +4,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
+ * enum for user types.
+ * 
+ * @author PKCORP
+ * @since 26/04/2017
  * 
  */
 public enum UserType {

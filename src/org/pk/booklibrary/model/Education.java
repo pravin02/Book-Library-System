@@ -1,8 +1,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
+ * education class.
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class Education {
 
@@ -25,8 +27,7 @@ public class Education {
 	 * @param percentage
 	 * @param year
 	 */
-	public Education(int educationId, String degree, String college,
-			String board, float percentage, int year) {
+	public Education(int educationId, String degree, String college, String board, float percentage, int year) {
 		super();
 		this.educationId = educationId;
 		this.degree = degree;
@@ -45,8 +46,8 @@ public class Education {
 	 * @param percentage
 	 * @param year
 	 */
-	public Education(int educationId, int userId, String degree,
-			String college, String board, float percentage, int year) {
+	public Education(int educationId, int userId, String degree, String college, String board, float percentage,
+			int year) {
 		super();
 		this.educationId = educationId;
 		this.userId = userId;
@@ -169,9 +170,8 @@ public class Education {
 	 */
 	@Override
 	public String toString() {
-		return "Education [educationId=" + educationId + ", userId=" + userId
-				+ ", degree=" + degree + ", college=" + college + ", board="
-				+ board + ", percentage=" + percentage + ", year=" + year + "]";
+		return "Education [educationId=" + educationId + ", userId=" + userId + ", degree=" + degree + ", college="
+				+ college + ", board=" + board + ", percentage=" + percentage + ", year=" + year + "]";
 	}
 
 }

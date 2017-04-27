@@ -84,6 +84,11 @@ final class UserDaoImpl implements UserDao {
 		return (list != null && list.size() == 1) ? list.get(0) : null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.pk.booklibrary.dao.UserDao#getUsersByUserType(java.lang.String)
+	 */
 	public List<User> getUsersByUserType(String userType) {
 		String SQL = "{CALL getUsersByUserType(?)}";
 		List<User> list = jdbcTemplateObject.query(SQL, new RowMapper<User>() {
@@ -243,8 +248,7 @@ final class UserDaoImpl implements UserDao {
 		List<BookCategory> list = jdbcTemplateObject.query(SQL, new RowMapper<BookCategory>() {
 			@Override
 			public BookCategory mapRow(java.sql.ResultSet rs, int numRow) throws SQLException {
-				return new BookCategory(rs.getInt("categoryId"), rs.getString("category"), 
-						rs.getString("description"),
+				return new BookCategory(rs.getInt("categoryId"), rs.getString("category"), rs.getString("description"),
 						rs.getString("image"));
 			}
 		}, id);
@@ -279,7 +283,8 @@ final class UserDaoImpl implements UserDao {
 				return new Book(rs.getInt("bookId"), getBookCategoryById(rs.getInt("categoryId")),
 						rs.getString("title"), rs.getString("author"), rs.getString("ISBN"),
 						rs.getString("publication"), rs.getInt("year"), rs.getString("image"),
-						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"), rs.getString("rackNo"));
+						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"),
+						rs.getString("rackNo"));
 			}
 		}, categoryId);
 		return list;
@@ -300,7 +305,8 @@ final class UserDaoImpl implements UserDao {
 				return new Book(rs.getInt("bookId"), getBookCategoryById(rs.getInt("categoryId")),
 						rs.getString("title"), rs.getString("author"), rs.getString("ISBN"),
 						rs.getString("publication"), rs.getInt("year"), rs.getString("image"),
-						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"), rs.getString("rackNo"));
+						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"),
+						rs.getString("rackNo"));
 			}
 		}, title, autor, publication, category);
 		return list;
@@ -321,7 +327,8 @@ final class UserDaoImpl implements UserDao {
 				return new Book(rs.getInt("bookId"), getBookCategoryById(rs.getInt("categoryId")),
 						rs.getString("title"), rs.getString("author"), rs.getString("ISBN"),
 						rs.getString("publication"), rs.getInt("year"), rs.getString("image"),
-						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"), rs.getString("rackNo"));
+						rs.getString("description"), rs.getInt("copies"), rs.getInt("availableBookCopies"),
+						rs.getString("rackNo"));
 			}
 		}, categoryId, id);
 		return (list != null && list.size() == 1) ? list.get(0) : null;
@@ -377,6 +384,11 @@ final class UserDaoImpl implements UserDao {
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.pk.booklibrary.dao.UserDao#getIssuedBooksByUserId(int)
+	 */
 	@Override
 	public List<IssuedBook> getIssuedBooksByUserId(int userId) {
 		String SQL = "{CALL getIssuedBooksByUserId(?)}";
@@ -395,7 +407,7 @@ final class UserDaoImpl implements UserDao {
 				ib.setImage(rs.getString("image"));
 				ib.setDescription(rs.getString("description"));
 				ib.setCopies(rs.getInt("copies"));
-				ib.setAvailableCopies( rs.getInt("availableBookCopies"));
+				ib.setAvailableCopies(rs.getInt("availableBookCopies"));
 				ib.setUserId(rs.getInt("userId"));
 				ib.setIssuedDateTime(rs.getTimestamp("issueDateTime"));
 				ib.setIssuedBy(rs.getInt("issuedBy"));
@@ -432,7 +444,7 @@ final class UserDaoImpl implements UserDao {
 				ib.setImage(rs.getString("image"));
 				ib.setDescription(rs.getString("description"));
 				ib.setCopies(rs.getInt("copies"));
-				ib.setAvailableCopies( rs.getInt("availableBookCopies"));
+				ib.setAvailableCopies(rs.getInt("availableBookCopies"));
 				ib.setUserId(rs.getInt("userId"));
 				ib.setUser(getUserDetails(rs.getInt("userId")));
 				ib.setIssuedDateTime(rs.getTimestamp("issueDateTime"));
@@ -472,11 +484,6 @@ final class UserDaoImpl implements UserDao {
 				: false;
 	}
 
-	/**
-	 * @param bookId
-	 * @param userId
-	 * @return
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -527,18 +534,24 @@ final class UserDaoImpl implements UserDao {
 		String SQL = "{CALL registerFine(?, ?, ?)}";
 		return jdbcTemplateObject.update(SQL, new Object[] { bookIssueId, amount, comment }) == 1 ? true : false;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.pk.booklibrary.dao.UserDao#requestForRenewal(int 
+	 * @see org.pk.booklibrary.dao.UserDao#requestForRenewal(int
 	 * java.lang.String)
 	 */
 	@Override
 	public boolean requestForRenewal(int userId, int bookIssueId) {
 		String SQL = "{CALL requestForRenewal(?,?)}";
-		return jdbcTemplateObject.update(SQL, new Object[] { userId, bookIssueId}) == 1 ? true : false;
+		return jdbcTemplateObject.update(SQL, new Object[] { userId, bookIssueId }) == 1 ? true : false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.pk.booklibrary.dao.UserDao#getFine(int)
+	 */
 	@Override
 	public List<Fine> getFine(int bookIssueId) {
 		// TODO Auto-generated method stub
@@ -547,15 +560,14 @@ final class UserDaoImpl implements UserDao {
 			@Override
 			public Fine mapRow(java.sql.ResultSet rs, int numRow) throws SQLException {
 				Fine fn = new Fine();
-				/*fn.setBookIssueId(rs.getInt("bookIssueId"));*/
+				/* fn.setBookIssueId(rs.getInt("bookIssueId")); */
 				fn.setTitle(rs.getString("title"));
 				fn.setFineAmount(rs.getDouble("fineAmount"));
 				fn.setComment(rs.getString("comment"));
-				/*fn.setDateTime(rs.getString("dateTime"));*/
+				/* fn.setDateTime(rs.getString("dateTime")); */
 				return fn;
 			}
 		}, bookIssueId);
 		return list;
 	}
-
 }

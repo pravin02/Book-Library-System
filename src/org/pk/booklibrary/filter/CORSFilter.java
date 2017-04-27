@@ -10,25 +10,39 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This filter class for cross browser platform.
+ * 
+ * @author PKORP
+ * @since 26/04/2017
+ */
 public class CORSFilter implements Filter {
-	public void doFilter(ServletRequest req, ServletResponse res,
-			FilterChain chain) throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) res;
 
-		response.addHeader("Access-Control-Allow-Origin", "*");		
-		 response.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
+	 * javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 */
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		
+		HttpServletResponse response = (HttpServletResponse) res;
+		
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
 		response.addHeader("Access-Control-Max-Age", "3600");
 		response.addHeader("Access-Control-Allow-Headers", "Content-Type");
-		
 
 		chain.doFilter(req, res);
 	}
 
 	@Override
 	public void destroy() {
-	}
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 }

@@ -4,8 +4,10 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
+ * enum for user status.
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public enum UserStatus {
 	ACTIVE, INACTIVE, DELETED;

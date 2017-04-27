@@ -1,10 +1,13 @@
 package org.pk.booklibrary.model;
 
 /**
- * @author SHREE
- *
+ * model class for book
+ * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public class Book {
+
 	private int bookId;
 	private BookCategory bookCategory;
 	private String title;
@@ -65,7 +68,6 @@ public class Book {
 		this.bookId = bookId;
 	}
 
-	
 	/**
 	 * @return the title
 	 */
@@ -200,8 +202,6 @@ public class Book {
 	public void setAvailableCopies(int availableCopies) {
 		this.availableCopies = availableCopies;
 	}
-	
-	
 
 	public BookCategory getBookCategory() {
 		return bookCategory;

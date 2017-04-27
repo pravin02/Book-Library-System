@@ -11,81 +11,83 @@ import org.pk.booklibrary.model.IssuedBook;
 import org.pk.booklibrary.model.User;
 
 /**
- * @author SHREE
+ * UserDao interface
  * 
+ * @author PKORP
+ * @since 26/04/2017
  */
 public interface UserDao {
 
 	/**
-	 * @return
+	 * @return dashboard data
 	 */
 	Dashboard getDashboardData();
 
 	/**
 	 * @param userType
-	 * @return
+	 * @return users list by user type
 	 */
 	List<User> getUsersByUserType(String userType);
 
 	/**
 	 * @param user
-	 * @return
+	 * @return registers new users in system
 	 */
 	boolean registerUser(User user);
 
 	/**
 	 * @param userId
-	 * @return
+	 * @return returns user details by userId
 	 */
 	User getUserDetails(int userId);
 
 	/**
 	 * @param userId
 	 * @param userStatus
-	 * @return
+	 * @return update user status on given userId
 	 */
 	boolean updateUserStatus(int userId, String userStatus);
 
 	/**
 	 * @param userId
 	 * @param user
-	 * @return
+	 * @return update user details against userId
 	 */
 	boolean updateUser(int userId, User user);
 
 	/**
 	 * @param userId
 	 * @param imageName
-	 * @return
+	 * @return boolean update user profile picture
 	 */
 	boolean updateUserProfilePic(int userId, String imageName);
 
 	/**
 	 * @param bookCategory
-	 * @return boolean
+	 * @return boolean add book category
 	 */
 	boolean addBookCategory(BookCategory bookCategory);
 
 	/**
-	 * @return
+	 * @return enlisted book categories
 	 */
 	List<BookCategory> getBookCategories();
 
 	/**
 	 * @param id
-	 * @return
+	 * @return book category details by categoryId
 	 */
 	BookCategory getBookCategoryById(int id);
 
 	/**
 	 * @param book
-	 * @return
+	 * @return add new book to system
 	 */
 	boolean addBook(Book book);
 
 	/**
 	 * @param categoryId
-	 * @return
+	 * @return get books by categoryId
 	 */
 	List<Book> getBooksByCategoryId(int categoryId);
 
@@ -94,75 +96,75 @@ public interface UserDao {
 	 * @param autor
 	 * @param publication
 	 * @param category
-	 * @return
+	 * @return books list which satisfies search criteria
 	 */
 	List<Book> searchBooks(String title, String autor, String publication, String category);
 
 	/**
 	 * @param categoryId
 	 * @param bookId
-	 * @return
+	 * @return book details by bookId
 	 */
 	Book getBookById(int categoryId, int bookId);
 
 	/**
 	 * @param education
-	 * @return
+	 * @return add new education entries
 	 */
 	boolean addEducation(int id, Education education);
 
 	/**
 	 * @param id
-	 * @return
+	 * @return returns education details by educationId
 	 */
 	Education getEducationById(int id);
 
 	/**
 	 * @param id
-	 * @return
+	 * @return education list of particular user
 	 */
 	List<Education> getEducationListByUserId(int id);
 
 	/**
 	 * @param token
-	 * @return
+	 * @return returns issued books by userId
 	 */
 	List<IssuedBook> getIssuedBooksByUserId(int token);
 
 	/**
-	 * @return
+	 * @return returns all issued books
 	 */
 	List<IssuedBook> getIssuedBooks();
 
 	/**
 	 * @param bookId
 	 * @param imageName
-	 * @return
+	 * @return boolean - updates book image by bookId
 	 */
 	boolean updateBookImage(int bookId, String imageName);
 
 	/**
 	 * @param bookId
 	 * @param userId
-	 * @return
+	 * @return boolean if book issued
 	 */
 	public boolean isBookIssued(int bookId, int userId);
 
 	/**
 	 * @param issuedBook
-	 * @return
+	 * @return to register book issue
 	 */
 	boolean issueBook(IssuedBook issuedBook);
 
 	/**
 	 * @param id
-	 * @return
+	 * @return deletes book from system
 	 */
 	boolean deleteBook(int id);
 
 	/**
 	 * @param id
-	 * @return
+	 * @return delete user from system
 	 */
 	boolean deleteUser(int id);
 
@@ -170,21 +172,20 @@ public interface UserDao {
 	 * @param bookIssueId
 	 * @param amount
 	 * @param comment
-	 * @return
+	 * @return registers fine against issued book to user
 	 */
 	boolean registerFine(int bookIssueId, double amount, String comment);
-	
-	
+
 	/**
 	 * @param userId
 	 * @param bookIssueId
-	 * @return
+	 * @return register request for renewal
 	 */
 	boolean requestForRenewal(int userId, int bookIssueId);
-	
+
 	/**
 	 * @param bookIssueId
-	 * @return
+	 * @return fine list for issued book
 	 */
 	List<Fine> getFine(int bookIssueId);
 }

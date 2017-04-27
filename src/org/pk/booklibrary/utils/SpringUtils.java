@@ -8,6 +8,11 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * Utility class to create object of UserDao
+ * @author PKORP
+ * @since 26/04/2017
+ */
 public class SpringUtils {
 
 	private static Logger logger = Logger.getLogger(SpringUtils.class);

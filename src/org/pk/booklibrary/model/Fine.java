@@ -1,5 +1,9 @@
 package org.pk.booklibrary.model;
 
+/**
+ * @author PKORP
+ * @since 26/04/2017
+ */
 public class Fine {
 
 	private int fineId;
